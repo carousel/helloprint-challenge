@@ -6,17 +6,17 @@ blue='\e[34m%s\e[0m\n'
 magenta='\e[1;35m%s\e[0m\n'
 cyan='\e[1;36m%s\e[0m\n'
 
-#service docker start
+service docker start
 
-#printf "$red" "Initializing CLIENT container"
-#cd Client && docker-compose build && docker-compose up -d
-#printf "$blue" "Done!"
+printf "$red" "Initializing CLIENT container"
+cd Client && docker-compose build && docker-compose up -d
+printf "$blue" "Done!"
 
-#cd ../Broker
+cd ../Broker
 
-#printf "$red" "Initializing BROKER container"
-#docker build --file .docker/Dockerfile -t broker . && docker-compose up -d
-#printf "$blue" "Done!"
+printf "$red" "Initializing BROKER container"
+docker build --file .docker/Dockerfile -t broker . && docker-compose up -d
+printf "$blue" "Done!"
 
 PHP=`which php`
 cd Consumer

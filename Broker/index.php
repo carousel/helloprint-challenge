@@ -1,13 +1,12 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
+use App\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use \App\Input;
 use \App\Broker;
-use App\Validator;
 
 $request = Request::createFromGlobals();
 $validator = new Validator($request->getContent());
@@ -22,10 +21,7 @@ if ($validator->errors) {
 } else {
     $broker = new Broker;
     $message = $broker->message($request->getContent());
-    //$callback = function($msg){
-    //$data = json_decode($msg->body,true);
-    //};
-    //$broker->listen($callback);
+ 
     $broker->publish($message);
     $broker->close();
 

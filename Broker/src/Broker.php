@@ -4,10 +4,6 @@ namespace App;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Carbon\Carbon;
-
-
-//tommorows - env data
 
 class Broker
 {
@@ -32,22 +28,5 @@ class Broker
         $this->channel->close();
         $this->connection->close();
     }
-    public function i($input)
-    {
-        ;
-    }
-        
+
 }
-
-
-
-
-
-
-
-
-
-//$channel->exchange_declare('antitask', 'direct', false, false, true, false, false, ['foo' => ['b', 'bar']]);
-
-
-//$msg = new AMQPMessage('Date and time: ' . Carbon::today());

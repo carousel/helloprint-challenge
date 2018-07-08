@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway');
-
-body{
+body {
     font-family: 'Montserrat', sans-serif;
 }
+
 input {
     width: 250px;
     height: 25px;
-    padding-left:5px;
-    margin-top:3px;
+    padding-left: 5px;
+    margin-top: 3px;
 }
+
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
+    /* Green */
     border: none;
     color: white;
     padding: 7px;
@@ -18,16 +20,19 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
-    margin-left:240px;
+    margin-left: 240px;
 }
+
 .form-wrapper {
     margin: auto;
-    margin-top:3%;
-    margin-left:40%;
+    margin-top: 3%;
+    margin-left: 40%;
 }
+
 div.username {
     margin-bottom: 2px;
 }
+
 div.password {
     margin-bottom: 5px;
 }

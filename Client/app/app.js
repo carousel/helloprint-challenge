@@ -2,57 +2,58 @@ let loginForm = document.getElementById('login-form');
 let recoveryForm = document.getElementById('recovery-form');
 let registerForm = document.getElementById('register-form');
 
-
-
-function send (data) {
-    unfetch("http://broker:8880/",
-    {
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(data)
-    })
-        .then(response => { 
-            if(response.status == 200){
+//this function is sending ajax request to broker
+function send(data) {
+    unfetch("http://broker:8880/", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.status == 200) {
                 response.json()
-                    .then( data => {
-                    let message = data.success;
-                    let successMessage = document.getElementById('success-message');
-                    let successMessageText = document.createTextNode(message)
-                    successMessage.appendChild(successMessageText)
-                })
-            }else{
+                    .then(data => {
+                        let message = data.success;
+                        let successMessage = document.getElementById('success-message');
+                        let successMessageText = document.createTextNode(message)
+                        successMessage.appendChild(successMessageText)
+                    })
+            } else {
                 response.json()
-                    .then( data => {
-                    let errors = data.errors;
-                    if(errors.username){
-                        let message = errors.username;
-                        let errorMessage = document.getElementById('username-error');
-                        let errorMessageText = document.createTextNode(message)
-                        errorMessage.appendChild(errorMessageText)
-                    }
-                    if(errors.email){
-                        let message = errors.email;
-                        let errorMessage = document.getElementById('email-error');
-                        let errorMessageText = document.createTextNode(message)
-                        errorMessage.appendChild(errorMessageText)
-                    }
-                    if(errors.password){
-                        let message = errors.password;
-                        let errorMessage = document.getElementById('password-error');
-                        let errorMessageText = document.createTextNode(message)
-                        errorMessage.appendChild(errorMessageText)
-                    }
-                })
-            
+                    .then(data => {
+                        let errors = data.errors;
+                        if (errors.username) {
+                            let message = errors.username;
+                            let errorMessage = document.getElementById('username-error');
+                            let errorMessageText = document.createTextNode(message)
+                            errorMessage.appendChild(errorMessageText)
+                        }
+                        if (errors.email) {
+                            let message = errors.email;
+                            let errorMessage = document.getElementById('email-error');
+                            let errorMessageText = document.createTextNode(message)
+                            errorMessage.appendChild(errorMessageText)
+                        }
+                        if (errors.password) {
+                            let message = errors.password;
+                            let errorMessage = document.getElementById('password-error');
+                            let errorMessageText = document.createTextNode(message)
+                            errorMessage.appendChild(errorMessageText)
+                        }
+                    })
+
             }
-    })
+        })
 }
 
-function onLogin (e) {
-    if (e) { event.preventDefault(); }
+//these are event handlers for form submit
+function onLogin(e) {
+    if (e) {
+        event.preventDefault();
+    }
     let username = document.forms['login-form']['username'].value;
     let password = document.forms['login-form']['password'].value;
     document.getElementById('success-message').innerHTML = "";
@@ -67,7 +68,9 @@ function onLogin (e) {
     send(data)
 }
 function onRegister(e) {
-    if (e) { event.preventDefault(); }
+    if (e) {
+        event.preventDefault();
+    }
     let username = document.forms['register-form']['username'].value;
     let email = document.forms['register-form']['email'].value;
     let password = document.forms['register-form']['password'].value;
@@ -85,15 +88,10 @@ function onRegister(e) {
     document.forms['register-form']['password'].value = ""
     send(data)
 }
-
-
-
-
-
-
-
-function onRecovery (e) {
-    if (e) { event.preventDefault(); }
+function onRecovery(e) {
+    if (e) {
+        event.preventDefault();
+    }
     let username = document.forms['recovery-form']['username'].value;
     document.getElementById('success-message').innerHTML = "";
     document.getElementById('username-error').innerHTML = "";
@@ -104,18 +102,15 @@ function onRecovery (e) {
     send(data)
 }
 
-if(loginForm){
+if (loginForm) {
     loginForm.addEventListener('submit', onLogin, false);
     loginForm.submit = onLogin;
 }
-if(recoveryForm){
+if (recoveryForm) {
     recoveryForm.addEventListener('submit', onRecovery, false);
     recoveryForm.submit = onRecovery;
 }
-if(registerForm){
+if (registerForm) {
     registerForm.addEventListener('submit', onRegister, false);
     registerForm.submit = onRegister;
 }
-
-
-
