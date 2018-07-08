@@ -7,7 +7,13 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class Broker
 {
+    /**
+     * @var AMQPStreamConnection
+     */
     private $connection;
+    /**
+     * @var \PhpAmqpLib\Channel\AMQPChannel
+     */
     private $channel;
     public function __construct()
     {
@@ -15,14 +21,27 @@ class Broker
         $this->channel = $this->connection->channel();
         $this->channel->queue_declare('helloprint', false, false, false, false);
     }
+
+    /**
+     * @param $text
+     * @return AMQPMessage
+     */
     public function message($text)
     {
         return new AMQPMessage($text);
     }
+
+    /**
+     * @param $message
+     */
     public function publish($message)
     {
         $this->channel->basic_publish($message, '', 'helloprint');
     }
+
+    /**
+     * @return void
+     */
     public function close()
     {
         $this->channel->close();
