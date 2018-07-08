@@ -27,3 +27,5 @@ There is repository for abstracting persistence (with interface implementation).
 
 There is exensive use of composer (for PHP dependecy) on broker and consumer nodes. 
 I have included couple of simple test cases (PHPUnit) on input validation
+
+Note that there is massive amount of things that can be improved here, and most of implementation is more proof of concept then finished project.
