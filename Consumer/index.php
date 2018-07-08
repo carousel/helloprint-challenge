@@ -1,4 +1,5 @@
 <?php
+//front controller
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -8,6 +9,7 @@ use App\Services\Auth;
 use App\Services\Consumer;
 
 $consumer = new Consumer;
+
 $callback = function ($msg) {
     $data = json_decode($msg->body, true);
     $type = $data['type'];

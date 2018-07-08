@@ -1,5 +1,6 @@
 <?php
 
+//initialize db/users table (simulate migration)
 require __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;

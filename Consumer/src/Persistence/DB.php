@@ -7,6 +7,9 @@ use PDO;
 
 class DB
 {
+    /**
+     * @return PDO
+     */
     public function pdo()
     {
         $dotenv = new Dotenv(__DIR__ . '/../../');
@@ -18,6 +21,9 @@ class DB
         return new PDO("mysql:host=$host;dbname=$dbname", $dbuser, $dbpass);
     }
 
+    /**
+     * @param $data
+     */
     public function create($data)
     {
         $username = $data['username'];
@@ -28,6 +34,12 @@ class DB
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute([$username, $email, $password, $status]);
     }
+
+    /**
+     * @param $column
+     * @param $data
+     * @param $username
+     */
     public function update($column, $data, $username)
     {
         if ($column == 'logged') {
@@ -50,6 +62,11 @@ class DB
             $stmt->execute();
         }
     }
+
+    /**
+     * @param $param
+     * @return mixed
+     */
     public function get($param)
     {
         $sql = "select email from users where username=:username";
@@ -59,6 +76,12 @@ class DB
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['email'];
     }
+
+    /**
+     * @param $username
+     * @param $password
+     * @return mixed
+     */
     public function find($username, $password)
     {
         $sql = "select * from users where username=:username and password=:password";

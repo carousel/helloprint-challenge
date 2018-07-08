@@ -19,7 +19,7 @@ class Consumer
     {
         $this->connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $this->channel = $this->connection->channel();
-        $this->channel->queue_declare('helloprint', false, false, false, false);
+        $this->channel->queue_declare('helloprint', false, true, false, false);
     }
     public function listen($callback)
     {

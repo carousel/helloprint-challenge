@@ -19,7 +19,7 @@ class Broker
     {
         $this->connection = new AMQPStreamConnection('146.185.140.33', 5672, 'test', 'test');
         $this->channel = $this->connection->channel();
-        $this->channel->queue_declare('helloprint', false, false, false, false);
+        $this->channel->queue_declare('helloprint', false, true, false, false);
     }
 
     /**
