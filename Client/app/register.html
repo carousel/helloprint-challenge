@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Publisher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form-wrapper">
+        <a href="/">Home</a>&nbsp;
+        <a href="/register.html">Register</a>&nbsp;
+        <a href="/recover.html">Recover</a>
+        <h2>Register</h2>
+        <form name="register-form" id="register-form">
+            <small id="username-error" style="color:red"></small>
+            <div class="username">
+                <label>username</label>
+                <br>
+                <input type="text" name="username" placeholder="enter your username">
+            </div>
+            <small id="email-error" style="color:red"></small>
+            <div class="email">
+                <label>email</label>
+                <br>
+                <input type="email" name="email" placeholder="enter your password">
+            </div>
+            <small id="password-error" style="color:red"></small>
+            <div class="password">
+                <label>password</label>&nbsp;
+                <br>
+                <input type="password" name="password" placeholder="enter your password">
+            </div>
+            <p><a href="/recover.html">Forgot password?</a></p>
+            <button type="button" onclick="form.submit()">Submit</button>
+        </form>
+        <br>
+            <div id="success-message" style="font-size:22px;color:green"></span>
+        </div>
+        <script src="//unpkg.com/unfetch/dist/unfetch.umd.js"></script>
+        <script src="app.js"></script>
+</body>
+
+</html>
