@@ -15,9 +15,8 @@ printf "$blue" "Done!"
 cd ../Broker
 
 printf "$red" "Initializing BROKER container"
-docker build --file .docker/Dockerfile -t broker . && docker-compose up -d
+docker build --file .docker/Dockerfile -t broker && docker-compose up -d
 printf "$blue" "Done!"
 
 PHP=`which php`
-cd Consumer
-$PHP init.php
+cd ../Consumer && composer install && composer dump-autoload && $PHP init.php
