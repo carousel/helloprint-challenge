@@ -7,6 +7,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 use App\Services\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
 use Carbon\Carbon;
+use Dotenv\Dotenv;
 
 
 //tommorows - env data
