@@ -1,4 +1,5 @@
 /Consumer/.env
+/Broker/.env
 /Consumer/vendor
 /Broker/vendor
 /Consumer/.idea
