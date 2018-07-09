@@ -29,6 +29,13 @@ class Consumer
             $this->channel->wait();
         }
     }
+    /**
+     * @param $message
+     */
+    public function publish($message)
+    {
+        $this->channel->basic_publish($message, '', 'hello');
+    }
 }
 
 
