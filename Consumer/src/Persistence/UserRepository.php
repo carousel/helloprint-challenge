@@ -77,6 +77,9 @@ class UserRepository
         $user = $this->findByUsernameAndPassword($username, $password);
         if ($user != null) {
             $this->db->update($column, $status, $username);
+            return true;
+        } else{
+            return false;
         }
     }
 

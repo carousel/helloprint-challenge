@@ -13,7 +13,7 @@ class Auth
     
     public function login($data)
     {
-        $this->userRepo->session($data);
+        return $this->userRepo->session($data);
     }
         
 }

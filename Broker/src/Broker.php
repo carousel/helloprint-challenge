@@ -36,7 +36,7 @@ class Broker
      */
     public function publish($message)
     {
-        $this->channel->basic_publish($message, '', 'message');
+        $this->channel->basic_publish($message, '', 'hello');
     }
 
     /**

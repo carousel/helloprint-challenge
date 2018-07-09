@@ -16,7 +16,8 @@ $callback = function ($msg) {
     $data = json_decode($msg->body, true);
     $type = $data['type'];
     if ($type == 'login') {
-        $auth->login($data);
+        $logged = $auth->login($data);
+        var_dump($logged);
     }
     if ($type == 'register') {
         $user->addNewUser($data);
