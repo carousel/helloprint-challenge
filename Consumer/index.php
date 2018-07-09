@@ -9,10 +9,10 @@ use App\Services\Auth;
 use App\Services\Consumer;
 
 $consumer = new Consumer;
-$user = new UserRepository(new DB);
-$auth = new Auth($user);
 
 $callback = function ($msg) {
+    $user = new UserRepository(new DB);
+    $auth = new Auth($user);
     $data = json_decode($msg->body, true);
     $type = $data['type'];
     if ($type == 'login') {
