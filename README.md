@@ -11,7 +11,7 @@
 * consumer listen on 146.185.140.33 (self hosted)
 
 
-Starting point is bootstrap.sh file, that will pull all docker images and init PHP db migration.
+Starting point is build script - bootstrap.sh file at the root of the project, that will pull all docker images and init PHP db migration.
 
 Client stack is made of mostly vanilla JS and HTML/CSS, using nginx server. On client side, I was using fetch polyfill (for ajax request) together with promise api. 
 User interface is made of three simple HTML forms: login,register and logout. Validation messages are displayed, based on response from broker. 
