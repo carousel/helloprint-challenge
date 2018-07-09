@@ -17,13 +17,15 @@ class Consumer
     private $channel;
     public function __construct()
     {
+        $dotenv = new Dotenv(__DIR__ . '/../../');
+        $dotenv->load();
         $this->connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $this->channel = $this->connection->channel();
-        $this->channel->queue_declare('helloprint', false, true, false, false);
+        $this->channel->queue_declare(getenv('QUEUE_NAME'), false, true, false, false);
     }
     public function listen($callback)
     {
-        $this->channel->basic_consume('helloprint', '', false, true, false, false, $callback);
+        $this->channel->basic_consume(getenv('QUEUE_NAME'), '', false, true, false, false, $callback);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         while(count($this->channel->callbacks)) {
             $this->channel->wait();
@@ -34,7 +36,7 @@ class Consumer
      */
     public function publish($message)
     {
-        $this->channel->basic_publish($message, '', 'helloprint');
+        $this->channel->basic_publish($message, '',getenv('QUEUE_NAME'));
     }
 }
 

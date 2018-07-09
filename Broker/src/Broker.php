@@ -4,6 +4,8 @@ namespace App;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Dotenv\Dotenv;
+
 
 class Broker
 {
@@ -17,9 +19,11 @@ class Broker
     private $channel;
     public function __construct()
     {
+        $dotenv = new Dotenv(__DIR__ . '/../');
+        $dotenv->load();
         $this->connection = new AMQPStreamConnection('146.185.140.33', 5672, 'test', 'test');
         $this->channel = $this->connection->channel();
-        $this->channel->queue_declare('helloprint', false, true, false, false);
+        $this->channel->queue_declare(getenv('QUEUE_NAME'), false, true, false, false);
     }
 
     /**
@@ -36,7 +40,7 @@ class Broker
      */
     public function publish($message)
     {
-        $this->channel->basic_publish($message, '', 'helloprint');
+        $this->channel->basic_publish($message, '', getenv('QUEUE_NAME') );
     }
 
     /**
