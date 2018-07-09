@@ -8,6 +8,9 @@ use App\Services\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
 use Carbon\Carbon;
 use Dotenv\Dotenv;
+use App\Persistence\UserRepository;
+use App\Services\Auth;
+use App\Services\Consumer;
 
 
 //tommorows - env data
@@ -26,7 +29,7 @@ class Consumer
     }
     public function listen($callback)
     {
-        $this->channel->basic_consume(getenv('QUEUE_NAME'), '', false, true, false, false, $callback);
+        $this->channel->basic_consume(getenv('QUEUE_NAME'), '', false, true, false, false, [$this,'processUser']);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         while(count($this->channel->callbacks)) {
             $this->channel->wait();
@@ -39,6 +42,27 @@ class Consumer
     {
         $this->channel->basic_publish($message, '',getenv('QUEUE_NAME'));
     }
+    public function processUser($msg)
+    {
+        $consumer = new Consumer;
+        $user = new UserRepository(new DB);
+        $auth = new Auth($user);
+        $data = json_decode($msg->body, true);
+        $type = $data['type'];
+        if ($type == 'login') {
+            $logged = $auth->login($data);
+            if($logged == false){
+                $consumer->publish(new PhpAmqpLib\Message\AMQPMessage('User does not exist'));
+            }
+        }
+        if ($type == 'register') {
+            $user->addNewUser($data);
+        }
+        if ($type == 'recovery') {
+            $user->changePassword($data);
+        }
+    }
+        
 }
 
 
@@ -49,7 +73,5 @@ class Consumer
 
 
 
-//$channel->exchange_declare('antitask', 'direct', false, false, true, false, false, ['foo' => ['b', 'bar']]);
 
 
-//$msg = new AMQPMessage('Date and time: ' . Carbon::today());

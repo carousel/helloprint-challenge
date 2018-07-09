@@ -25,10 +25,11 @@ if ($validator->errors) {
     )));
     $response->setStatusCode(422);
 } else {
+
     $broker = new Broker;
     $message = $broker->message($request->getContent());
- 
     $broker->publish($message);
+    $broker->close();
 
     /*
     |------------------------------------------------------------------------------------------
@@ -38,7 +39,6 @@ if ($validator->errors) {
     |-------------------------------------------------------------------------------------------
     */
 
-    $broker->close();
 
     $response->setContent(json_encode(array(
         'success' => $validator->message,
