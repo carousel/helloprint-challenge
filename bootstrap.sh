@@ -8,15 +8,27 @@ cyan='\e[1;36m%s\e[0m\n'
 
 service docker start
 
-printf "$red" "Initializing CLIENT container"
-cd Client && docker-compose build && docker-compose up -d
-printf "$blue" "Done!"
+#start client service
+cd Client
+printf "$blue" "Initializing CLIENT container"
+docker-compose build && docker-compose up -d
+printf "$green" "Done!"
+echo '---------------------------------------------------------------------------------------'
 
 cd ../Broker
 
-printf "$red" "Initializing BROKER container"
-docker build --file .docker/Dockerfile -t broker && docker-compose up -d
-printf "$blue" "Done!"
+#start broker service
+printf "$blue" "Initializing BROKER container"
+docker build --file .docker/Dockerfile -t broker && docker-compose up -d && composer install && composer dump-autoload 
+printf "$green" "Done!"
+echo '---------------------------------------------------------------------------------------'
 
+
+#init and migrate consumer schema
+cd ../Consumer
+printf "$blue" "Migrating CONSUMER schema"
 PHP=`which php`
-cd ../Consumer && composer install && composer dump-autoload && $PHP init.php
+composer install && composer dump-autoload && $PHP init.php
+printf "$green" "Done!"
+
+echo '---------------------------------------'

@@ -1,21 +1,24 @@
 <?php
-
-//front controller
-
+//FRONT CONTROLLER
+//
+//allow headers on broker (browser policy)
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use \App\Broker;
+use App\Broker;
 
 $request = Request::createFromGlobals();
 $validator = new Validator($request->getContent());
 
 $response = new Response();
 $response->headers->set('Content-Type', 'application/json');
+
+//validate
 if ($validator->errors) {
     $response->setContent(json_encode(array(
         'errors' => $validator->errors,
@@ -34,4 +37,5 @@ if ($validator->errors) {
     $response->headers->set('Content-Type', 'application/json');
     $response->setStatusCode(200);
 }
+//send HTTP response to client
 $response->send();

@@ -13,8 +13,8 @@
 
 Starting point is bootstrap.sh file, that will pull all docker images and init PHP db migration.
 
-Client stack is made of mostly vanilla JS and HTML/CSS, using nginx server. On client side, I was using fetch polyfill (for ajax request). 
-User interface is made of three simple HTML forms: login,register and logout. Validation messages are displayed, based on response from broker.  
+Client stack is made of mostly vanilla JS and HTML/CSS, using nginx server. On client side, I was using fetch polyfill (for ajax request) together with promise api. 
+User interface is made of three simple HTML forms: login,register and logout. Validation messages are displayed, based on response from broker. 
 Simle styling is applied on client interface.
 
 Broker node is using PHP7.1 with Apache server, php-ampqlib (for queues) and symfony http-foundation component (for easy request/response handling)
