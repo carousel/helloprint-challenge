@@ -17,7 +17,9 @@ $callback = function ($msg) {
     $type = $data['type'];
     if ($type == 'login') {
         $logged = $auth->login($data);
-        var_dump($logged);
+        if($logged == false){
+            $consumer->publish(new PhpAmqpLib\Message\AMQPMessage('User does not exist'));
+        }
     }
     if ($type == 'register') {
         $user->addNewUser($data);
