@@ -16,7 +16,7 @@ echo '--------------------------------------------------------------------------
 
 #start broker service
 printf "$blue" "Initializing BROKER container"
-cd ../Broker docker build --file .docker/Dockerfile -t broker && docker-compose up -d && composer install && composer dump-autoload && service rabbitmq-server start
+cd ../Broker docker build --file .docker/Dockerfile -t broker && docker-compose up -d && composer install && composer dump-autoload
 printf "$green" "Done!"
 echo '---------------------------------------------------------------------------------------'
 
@@ -24,7 +24,7 @@ echo '--------------------------------------------------------------------------
 #init and migrate consumer schema
 printf "$blue" "Migrating CONSUMER schema"
 PHP=`which php`
-cd ../Consumer composer install && composer dump-autoload && $PHP init.php 
+cd ../Consumer composer install && composer dump-autoload && $PHP init.php && service rabbitmq-server restart && $PHP index.php
 printf "$green" "Done!"
 
 echo '---------------------------------------'

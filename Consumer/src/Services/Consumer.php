@@ -23,7 +23,7 @@ class Consumer
     }
     public function listen($callback)
     {
-        $this->channel->basic_consume('hello', '', false, true, false, false, $callback);
+        $this->channel->basic_consume('helloprint', '', false, true, false, false, $callback);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         while(count($this->channel->callbacks)) {
             $this->channel->wait();
@@ -34,7 +34,7 @@ class Consumer
      */
     public function publish($message)
     {
-        $this->channel->basic_publish($message, '', 'hello');
+        $this->channel->basic_publish($message, '', 'helloprint');
     }
 }
 
