@@ -24,8 +24,6 @@ try {
         username VARCHAR(30) NOT NULL,
         password VARCHAR(30) NOT NULL,
         email VARCHAR(50) NOT NULL,
-        created_on DATETIME NOT NULL DEFAULT NOW(),
-        updated_on DATETIME NOT NULL,
         status TINYINT(1)
     )";
     $pdo->exec($schema);
