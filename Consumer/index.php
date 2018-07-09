@@ -8,7 +8,7 @@ use App\Persistence\UserRepository;
 use App\Services\Auth;
 use App\Services\Consumer;
 
-//$consumer = new Consumer;
+$consumer = new Consumer;
 //$user = new UserRepository(new DB);
 //$auth = new Auth($user);
 

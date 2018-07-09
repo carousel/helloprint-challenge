@@ -11,6 +11,7 @@ use Dotenv\Dotenv;
 use App\Persistence\UserRepository;
 use App\Services\Auth;
 use App\Services\Consumer;
+use App\Persistence\DB;
 
 
 //tommorows - env data
@@ -27,7 +28,7 @@ class Consumer
         $this->channel = $this->connection->channel();
         $this->channel->queue_declare(getenv('QUEUE_NAME'), false, true, false, false);
     }
-    public function listen($callback)
+    public function listen()
     {
         $this->channel->basic_consume(getenv('QUEUE_NAME'), '', false, true, false, false, [$this,'processUser']);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
