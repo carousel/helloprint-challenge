@@ -29,6 +29,15 @@ if ($validator->errors) {
     $message = $broker->message($request->getContent());
  
     $broker->publish($message);
+
+    /*
+    |------------------------------------------------------------------------------------------
+    | NOTE consumer is publishing message back if user does not exits, or if credentials are wrong.
+    | $consumer->publish(new PhpAmqpLib\Message\AMQPMessage('User does not exist'));
+    | We should return error back to client:
+    |-------------------------------------------------------------------------------------------
+    */
+
     $broker->close();
 
     $response->setContent(json_encode(array(
