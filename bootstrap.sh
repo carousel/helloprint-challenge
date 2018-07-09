@@ -9,26 +9,22 @@ cyan='\e[1;36m%s\e[0m\n'
 service docker start
 
 #start client service
-cd Client
 printf "$blue" "Initializing CLIENT container"
-docker-compose build && docker-compose up -d
+cd Client docker-compose build && docker-compose up -d
 printf "$green" "Done!"
 echo '---------------------------------------------------------------------------------------'
 
-cd ../Broker
-
 #start broker service
 printf "$blue" "Initializing BROKER container"
-docker build --file .docker/Dockerfile -t broker && docker-compose up -d && composer install && composer dump-autoload 
+cd ../Broker docker build --file .docker/Dockerfile -t broker && docker-compose up -d && composer install && composer dump-autoload && service rabbitmq-server start
 printf "$green" "Done!"
 echo '---------------------------------------------------------------------------------------'
 
 
 #init and migrate consumer schema
-cd ../Consumer
 printf "$blue" "Migrating CONSUMER schema"
 PHP=`which php`
-composer install && composer dump-autoload && $PHP init.php
+cd ../Consumer composer install && composer dump-autoload && $PHP init.php && service rabbitmq-server start && $PHP index.php
 printf "$green" "Done!"
 
 echo '---------------------------------------'
