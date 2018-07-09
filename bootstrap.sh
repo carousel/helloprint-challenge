@@ -27,4 +27,4 @@ PHP=`which php`
 cd ../Consumer composer install && composer dump-autoload && $PHP init.php && service rabbitmq-server restart && $PHP index.php
 printf "$green" "Done!"
 
-echo '---------------------------------------'
+echo '---------------------------------------------------------------------------------------'
