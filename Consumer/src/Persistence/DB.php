@@ -55,10 +55,13 @@ class DB
             $stmt->execute([':username' => $data, ':username' => $username]);
         }
         if ($column == 'recovery') {
-            $sql = "UPDATE users SET password=:password WHERE username=:username";
+            $dt = new \DateTime();
+            $updated_at = $dt->format('YYYY-MM-DD HH:MM:DD');
+            $sql = "UPDATE users SET password=:password, updated_at=:updated_at WHERE username=:username";
             $stmt = $this->pdo()->prepare($sql);
             $stmt->bindValue(':password', $data);
             $stmt->bindValue(':username', $username);
+            $stmt->bindValue(':updated_at', $updated_at);
             $stmt->execute();
         }
     }

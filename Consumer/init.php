@@ -15,14 +15,17 @@ try {
     $dbname = getenv('DB_NAME');
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbuser, $dbpass);
 
-    $stmt = $pdo->prepare('delete from users');
-    $stmt->execute();
+
+    $users = "DROP TABLE IF EXISTS users";
+    $pdo->exec($users);
 
     $schema = "CREATE TABLE users (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(30) NOT NULL,
         password VARCHAR(30) NOT NULL,
         email VARCHAR(50) NOT NULL,
+        created_on DATETIME NOT NULL DEFAULT NOW(),
+        updated_on DATETIME NOT NULL,
         status TINYINT(1)
     )";
     $pdo->exec($schema);
