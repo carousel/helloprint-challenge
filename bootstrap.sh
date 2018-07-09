@@ -24,7 +24,7 @@ echo '--------------------------------------------------------------------------
 #init and migrate consumer schema
 printf "$blue" "Migrating CONSUMER schema"
 PHP=`which php`
-cd ../Consumer composer install && composer dump-autoload && $PHP init.php && service rabbitmq-server start && $PHP index.php
+cd ../Consumer composer install && composer dump-autoload && $PHP init.php 
 printf "$green" "Done!"
 
 echo '---------------------------------------'
