@@ -24,6 +24,6 @@ Consumer node is not dockerized. It is using PHP, MySql (PDO). Dotenv package is
 initial users table schema. For email management, PHPMailer library is used. Code in src folder is organized by responsibility, following good practices.
 There is repository for abstracting persistence (with interface implementation). Also services layer is present. 
 
-There is exensive use of composer (for PHP dependecy) on broker and consumer nodes. 
+There is extensive use of composer (for PHP dependecy) on broker and consumer nodes. 
 I have included couple of simple test cases (PHPUnit) on input validation (broker node)
 
