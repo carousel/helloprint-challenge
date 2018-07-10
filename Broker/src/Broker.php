@@ -42,9 +42,9 @@ class Broker
         $this->channel->basic_publish($message, '', getenv('INPUT_QUEUE'));
     }
 
-    public function listen($callback)
+    public function listen()
     {
-        $this->channel->basic_consume(getenv('OUTPUT_QUEUE'), '', false, true, false, false, $callback);
+        $this->channel->basic_consume(getenv('OUTPUT_QUEUE'), '', false, true, false, false, [$this,'status']);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         while (count($this->channel->callbacks)) {
             $this->channel->wait();
@@ -59,4 +59,10 @@ class Broker
         $this->channel->close();
         $this->connection->close();
     }
+    public function status($message)
+    {
+        return true;
+        //var_dump($message->body);
+    }
+        
 }
