@@ -32,7 +32,7 @@ $validator = new Validator($request->getContent());
 $response = new Response();
 $response->headers->set('Content-Type', 'application/json');
 $broker = new Broker;
-$broker->listen();
+//$broker->listen();
 
 //validate
 if ($validator->errors) {
