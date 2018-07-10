@@ -114,3 +114,6 @@ if (registerForm) {
     registerForm.addEventListener('submit', onRegister, false);
     registerForm.submit = onRegister;
 }
+setTimeout(function(){
+    $('#success-message').fadeOut();
+},6000);

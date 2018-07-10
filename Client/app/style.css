@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway');
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 input {
@@ -8,6 +8,9 @@ input {
     height: 25px;
     padding-left: 5px;
     margin-top: 3px;
+    margin-bottom: 5px;
+    border-radius:5px;
+    border: 1px solid #ccc;
 }
 
 button {
@@ -15,12 +18,13 @@ button {
     /* Green */
     border: none;
     color: white;
-    padding: 7px;
+    padding: 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 15px;
     margin-left: 240px;
+    border-radius:5px;
 }
 
 .form-wrapper {
