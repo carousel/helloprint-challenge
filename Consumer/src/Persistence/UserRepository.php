@@ -27,7 +27,7 @@ class UserRepository
      */
     public function findByUsername($username)
     {
-        return $this->db->get($username);
+        return $this->db->get('username',$username);
     }
 
     /**
@@ -58,11 +58,13 @@ class UserRepository
         $username = $data['username'];
         $this->db->update($column, $password, $username);
 
-        $email = $this->findByUsername($username);
-
-        $subject = 'You requested to change password';
-        $message = "Your new password is: " . $password . "<br>login: <a href=\"http://client:8088\">here</a>";
-        new Mail($username, $email, $subject, $message);
+        $user = $this->findByUsername($username);
+        if($user){
+            $email = $user['email'];
+            $subject = 'You requested to change password';
+            $message = "Your new password is: " . $password . "<br>login: <a href=\"http://client:8088\">here</a>";
+            new Mail($username, $email, $subject, $message);
+        }
     }
 
     /**
@@ -82,6 +84,16 @@ class UserRepository
             return false;
         }
     }
+    public function exists($username)
+    {
+        $user = $this->findByUsername($username);
+        if ($user != null) {
+            return $user;
+        } else{
+            return false;
+        }
+    }
+        
 
     /**
      * @param $username

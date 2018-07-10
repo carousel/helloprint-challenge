@@ -53,14 +53,27 @@ class Consumer
         if ($type == 'login') {
             $logged = $auth->login($data);
             if($logged == false){
-                $consumer->publish(new PhpAmqpLib\Message\AMQPMessage('User does not exist'));
+                $consumer->publish(new AMQPMessage('User does not exist'));
+                echo $data['username'] . ' does not exist' . "\n";
+            }else{
+                echo $data['username'] . ' logged' . "\n";
             }
         }
         if ($type == 'register') {
             $user->addNewUser($data);
+            echo $data['username'] . ' registered' . "\n";
         }
         if ($type == 'recovery') {
-            $user->changePassword($data);
+            $exists = $auth->exists($data['username']);
+            if($exists == false){
+                $consumer->publish(new AMQPMessage('User does not exist'));
+                echo "\n";
+                echo $data['username'] . ' does not exist' . "\n";
+            }else{
+                $user->changePassword($data);
+                echo "\n";
+                echo 'Password changed for ' . $data['username'] . "\n";
+            }
         }
     }
         

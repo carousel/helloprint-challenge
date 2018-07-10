@@ -15,5 +15,9 @@ class Auth
     {
         return $this->userRepo->session($data);
     }
+    public function exists($username)
+    {
+        return $this->userRepo->findByUsername($username);
+    }
         
 }

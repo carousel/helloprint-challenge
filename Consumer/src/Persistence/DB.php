@@ -67,14 +67,14 @@ class DB
      * @param $param
      * @return mixed
      */
-    public function get($param)
+    public function get($column,$param)
     {
-        $sql = "select email from users where username=:username";
+        $sql = "select * from users where $column=:username";
         $stmt = $this->pdo()->prepare($sql);
         $stmt->bindValue(':username', $param);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['email'];
+        return $result;
     }
 
     /**
