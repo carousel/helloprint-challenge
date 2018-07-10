@@ -26,11 +26,11 @@ class Consumer
         $dotenv->load();
         $this->connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $this->channel = $this->connection->channel();
-        $this->channel->queue_declare(getenv('QUEUE_NAME'), false, true, false, false);
+        $this->channel->queue_declare(getenv('OUTPUT_QUEUE'), false, true, false, false);
     }
     public function listen()
     {
-        $this->channel->basic_consume(getenv('QUEUE_NAME'), '', false, true, false, false, [$this,'processUser']);
+        $this->channel->basic_consume(getenv('INPUT_QUEUE'), '', false, true, false, false, [$this,'processUser']);
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         while(count($this->channel->callbacks)) {
             $this->channel->wait();
@@ -41,11 +41,10 @@ class Consumer
      */
     public function publish($message)
     {
-        $this->channel->basic_publish($message, '',getenv('QUEUE_NAME'));
+        $this->channel->basic_publish($message, '',getenv('OUTPUT_QUEUE'));
     }
     public function processUser($msg)
     {
-        $consumer = new Consumer;
         $user = new UserRepository(new DB);
         $auth = new Auth($user);
         $data = json_decode($msg->body, true);
@@ -53,7 +52,7 @@ class Consumer
         if ($type == 'login') {
             $logged = $auth->login($data);
             if($logged == false){
-                $consumer->publish(new AMQPMessage('User does not exist'));
+                $this->publish(new AMQPMessage('User does not exist'));
                 echo $data['username'] . ' does not exist' . "\n";
             }else{
                 echo $data['username'] . ' logged' . "\n";
@@ -66,7 +65,7 @@ class Consumer
         if ($type == 'recovery') {
             $exists = $auth->exists($data['username']);
             if($exists == false){
-                $consumer->publish(new AMQPMessage('User does not exist'));
+                $this->publish(new AMQPMessage('User does not exist'));
                 echo "\n";
                 echo $data['username'] . ' does not exist' . "\n";
             }else{
