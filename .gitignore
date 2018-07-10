@@ -1,5 +1,7 @@
 /Consumer/.env
 /Broker/.env
+/Consumer/logger.log
+/Broker/logger.log
 /Consumer/vendor
 /Broker/vendor
 /Consumer/.idea
