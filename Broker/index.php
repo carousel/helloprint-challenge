@@ -25,7 +25,6 @@ if ($validator->errors) {
     )));
     $response->setStatusCode(422);
 } else {
-
     $broker = new Broker;
     $message = $broker->message($request->getContent());
     $broker->publish($message);
