@@ -1,0 +1,20 @@
+{
+  "name": "ajax-call",
+  "version": "1.0.0",
+  "description": "node/axios helper for sending ajax request from CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "axios",
+    "ajax",
+    "CLI"
+  ],
+  "author": "Miroslav Trninic <miroslav.trninic@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "jquery": "^3.3.1"
+  }
+}
